@@ -1,3 +1,4 @@
+drop database osahaneat;
 create database osahaneat;
 use osahaneat;
 
@@ -5,7 +6,7 @@ create table roles(
 	id int auto_increment,
     role_name varchar(20),
     create_date timestamp,
-    
+
     primary key(id)
 );
 
@@ -16,7 +17,7 @@ create table users(
     fullname varchar(20),
     create_date timestamp,
     role_id int,
-    
+
     primary key(id)
 );
 
@@ -26,7 +27,7 @@ create table rating_food(
 	food_id int,
     content text,
     rate_point int,
-    
+
     primary key(id)
 );
 
@@ -34,19 +35,19 @@ create table category(
 	id int auto_increment,
     name_cate varchar(50),
     create_date timestamp,
-    
+
     primary key(id)
 );
 
 
-create table food( 
+create table food(
 	id int auto_increment,
     tital varchar(225),
     image text,
     time_ship varchar(10),
     price decimal,
-    cate_id int, 
-    
+    cate_id int,
+
     primary key(id)
 );
 
@@ -57,16 +58,16 @@ create table rating_restaurant(
     res_id int,
     content text,
     rate_point int,
-    
+
     primary key(id)
 );
 
 create table orders(
 	id int auto_increment,
-    user_id int, 
+    user_id int,
     res_id int,
     create_date timestamp,
-    
+
     primary key(id)
 );
 
@@ -74,7 +75,7 @@ create table menu_restaurant(
 	cate_id int,
     res_id int,
     create_date timestamp,
-    
+
     primary key(cate_id, res_id)
 );
 
@@ -87,17 +88,17 @@ create table restaurant(
     is_freeship boolean,
     address varchar(100),
     open_date timestamp,
-    
+
     primary key(id)
 );
 
 create table promo(
 	id int auto_increment,
 	res_id int,
-	percent int, 
+	percent int,
     start_date timestamp,
     end_date timestamp,
-	
+
     primary key(id)
 );
 
@@ -106,7 +107,7 @@ create table order_item(
 	order_id int,
     food_id int,
     create_date timestamp,
-    
+
     primary key(order_id, food_id)
 );
 
@@ -132,10 +133,9 @@ values("nhut", "$2a$12$SLp1m8rlNxXxGgx5poEwhueOLx/Xv1PMo2xH22A1kNmR.a/1l1Km6user
 insert into users(user_name, password, fullname, create_date, role_id)
 values("minh", "$2a$12$SLp1m8rlNxXxGgx5poEwhueOLx/Xv1PMo2xH22A1kNmR.a/1l1Km6", "Nguyen nhut", "2025-4-3", 2);
 
-
-select * from category;
-select * from food;
-select * from roles;
+INSERT INTO category (name_cate, create_date) VALUES
+('Món chính', NOW()),
+('Đồ uống', NOW());
 
 INSERT INTO restaurant (title, subtitle, description, image, is_freeship, address, open_date) VALUES
 ('Nhà hàng A', 'Ẩm thực Việt', 'Mô tả A', 'a.jpg', TRUE, '123 Đường ABC', NOW()),
@@ -159,14 +159,16 @@ INSERT INTO food (tital, image, time_ship, price, cate_id) VALUES
 
 
 INSERT INTO rating_food (user_id, food_id, content, rate_point) VALUES
-(1, 10, 'Ngon lắm!', 5),
-(2, 12, 'Rất đáng thử.', 4),
-(2, 13, 'Bình thường.', 3),
-(2, 9, 'Hơi ngọt.', 3),
+(1, 1, 'Ngon lắm!', 5),
+(2, 2, 'Rất đáng thử.', 4),
+(2, 3, 'Bình thường.', 3),
+(2, 4, 'Hơi ngọt.', 3),
 (2, 5, 'Tươi ngon.', 5),
 (2, 6, 'Giá hợp lý.', 4),
 (2, 7, 'Ăn chay tốt.', 5),
 (2, 8, 'Mát lạnh.', 4);
+
+
 
 
 INSERT INTO rating_restaurant (user_id, res_id, content, rate_point) VALUES
@@ -196,4 +198,3 @@ INSERT INTO menu_restaurant (cate_id, res_id, create_date) VALUES
 (1, 3, NOW()),
 (2, 1, NOW()),
 (1, 2, NOW());
-
