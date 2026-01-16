@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.payload.ResponseData;
 import com.example.demo.payload.request.SignUpRequest;
-import com.example.demo.service.imp.LoginServiceimp;
+import com.example.demo.service.LoginService;
 import com.example.demo.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     @Autowired
-    LoginServiceimp loginServiceimp;
+    LoginService loginService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -28,7 +28,7 @@ public class LoginController {
 //        String secretString = Encoders.BASE64.encode(secretKey.getEncoded());
 //        System.out.println(secretString);
 
-        if(loginServiceimp.checkLogin(username, password)){
+        if(loginService.checkLogin(username, password)){
             String token = jwtUtils.generateToken(username);
             responseData.setData(token);
 
@@ -45,7 +45,7 @@ public class LoginController {
     public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
         ResponseData responseData = new ResponseData();
 
-        responseData.setData(loginServiceimp.addUser(signUpRequest));
+        responseData.setData(loginService.addUser(signUpRequest));
 
         return new ResponseEntity<>(responseData, HttpStatus.OK);
 

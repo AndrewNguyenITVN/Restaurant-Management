@@ -2,8 +2,8 @@ package com.example.demo.controller;
 
 
 import com.example.demo.payload.ResponseData;
-import com.example.demo.service.imp.FileServiceImp;
-import com.example.demo.service.imp.RestaurantServiceImp;
+import com.example.demo.service.FileService;
+import com.example.demo.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -17,10 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class RestaurantController {
 
     @Autowired
-    FileServiceImp fileServiceImp;
+    FileService fileService;
 
     @Autowired
-    RestaurantServiceImp restaurantServiceImp;
+    RestaurantService restaurantService;
 
     @PostMapping()
     public ResponseEntity<?> createRestaurant(
@@ -34,7 +34,7 @@ public class RestaurantController {
     ){
         ResponseData responseData = new ResponseData();
 
-        boolean isSuccess = restaurantServiceImp.insertRestaurant(file, title, subtitle, description, is_freeship, address, open_date);
+        boolean isSuccess = restaurantService.insertRestaurant(file, title, subtitle, description, is_freeship, address, open_date);
 
 
         responseData.setData(isSuccess);
@@ -47,13 +47,13 @@ public class RestaurantController {
         ResponseData responseData = new ResponseData();
 
 
-        responseData.setData(restaurantServiceImp.getHomePageRestaurant());
+        responseData.setData(restaurantService.getHomePageRestaurant());
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
 
     @GetMapping("/file/{filename:.+}")
     public ResponseEntity<?> getFileRestaurant(@PathVariable String filename) {
-        Resource resource = fileServiceImp.loadFile(filename);
+        Resource resource = fileService.loadFile(filename);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + resource.getFilename() + "\"")
@@ -65,7 +65,7 @@ public class RestaurantController {
 
         ResponseData responseData = new ResponseData();
 
-        responseData.setData(restaurantServiceImp.getDetailRestaurant(id));
+        responseData.setData(restaurantService.getDetailRestaurant(id));
 
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
@@ -75,7 +75,7 @@ public class RestaurantController {
 
         ResponseData responseData = new ResponseData();
 
-        responseData.setData(restaurantServiceImp.getRestaurantByTitle(title));
+        responseData.setData(restaurantService.getRestaurantByTitle(title));
 
         return new ResponseEntity<>(responseData, HttpStatus.OK);
     }
@@ -91,7 +91,7 @@ public class RestaurantController {
                                               @RequestParam String open_date) {
 
         ResponseData responseData = new ResponseData();
-        boolean result = restaurantServiceImp.updateRestaurant(id, file, title, subtitle, description, is_freeship, address, open_date);
+        boolean result = restaurantService.updateRestaurant(id, file, title, subtitle, description, is_freeship, address, open_date);
         responseData.setData(result);
 
         return new ResponseEntity<>(responseData, result ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -100,7 +100,7 @@ public class RestaurantController {
     @PostMapping("delete/{id}")
     public ResponseEntity<?> deleteRestaurant(@PathVariable int id) {
         ResponseData responseData = new ResponseData();
-        boolean result = restaurantServiceImp.deleteRestaurant(id);
+        boolean result = restaurantService.deleteRestaurant(id);
         responseData.setData(result);
 
         return new ResponseEntity<>(responseData, result ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
