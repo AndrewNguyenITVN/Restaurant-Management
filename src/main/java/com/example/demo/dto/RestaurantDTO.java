@@ -24,7 +24,7 @@ public class RestaurantDTO {
 
     private Date openTime;
 
-    List<CaterotyDTO> cateroties;
+    List<CategoryDTO> cateroties;
 
     public int getId() {
         return id;
@@ -41,11 +41,11 @@ public class RestaurantDTO {
         this.openTime = openTime;
     }
 
-    public List<CaterotyDTO> getCateroties() {
+    public List<CategoryDTO> getCateroties() {
         return cateroties;
     }
 
-    public void setCateroties(List<CaterotyDTO> cateroties) {
+    public void setCateroties(List<CategoryDTO> cateroties) {
         this.cateroties = cateroties;
     }
 

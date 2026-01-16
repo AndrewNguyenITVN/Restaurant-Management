@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.keys.keyOrderItem;
+import com.example.demo.entity.keys.KeyOrderItem;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity(name = "order_item")
 public class OrderItem {
     @EmbeddedId
-    keyOrderItem keyOrderItem;
+    KeyOrderItem KeyOrderItem;
 
     @ManyToOne
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
@@ -21,12 +21,12 @@ public class OrderItem {
     @Column(name = "create_date")
     private Date createDate;
 
-    public com.example.demo.entity.keys.keyOrderItem getKeyOrderItem() {
-        return keyOrderItem;
+    public com.example.demo.entity.keys.KeyOrderItem getKeyOrderItem() {
+        return KeyOrderItem;
     }
 
-    public void setKeyOrderItem(com.example.demo.entity.keys.keyOrderItem keyOrderItem) {
-        this.keyOrderItem = keyOrderItem;
+    public void setKeyOrderItem(com.example.demo.entity.keys.KeyOrderItem KeyOrderItem) {
+        this.KeyOrderItem = KeyOrderItem;
     }
 
     public Orders getOrderId() {

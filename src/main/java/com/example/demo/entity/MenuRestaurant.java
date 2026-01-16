@@ -1,6 +1,6 @@
 package com.example.demo.entity;
 
-import com.example.demo.entity.keys.keyMenuRestaurant;
+import com.example.demo.entity.keys.KeyMenuRestaurant;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Date;
 public class MenuRestaurant {
 
     @EmbeddedId
-    keyMenuRestaurant key;
+    KeyMenuRestaurant key;
 
     @ManyToOne
     @JoinColumn(name = "cate_id", insertable = false, updatable = false)
@@ -22,11 +22,11 @@ public class MenuRestaurant {
     @Column(name = "create_date")
     private Date createDate;
 
-    public keyMenuRestaurant getKey() {
+    public KeyMenuRestaurant getKey() {
         return key;
     }
 
-    public void setKey(keyMenuRestaurant key) {
+    public void setKey(KeyMenuRestaurant key) {
         this.key = key;
     }
 

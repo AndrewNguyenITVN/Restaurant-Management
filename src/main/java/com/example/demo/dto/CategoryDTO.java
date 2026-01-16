@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import java.util.List;
 
-public class CaterotyDTO {
+public class CategoryDTO {
     private String name;
     private List<FoodDTO> menus;
 
