@@ -1,13 +1,8 @@
-package com.example.demo.service.imp;
+package com.example.demo.service;
 
-import com.example.demo.dto.FoodDTO;
-import com.example.demo.dto.RestaurantDTO;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
-public interface MenuServiceImp {
+public interface MenuService {
     boolean insertMenu(MultipartFile file,
                         String title,
                         String time_ship,

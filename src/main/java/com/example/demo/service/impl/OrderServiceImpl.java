@@ -1,7 +1,7 @@
-package com.example.demo.service.imp;
+package com.example.demo.service.impl;
 
 import com.example.demo.entity.*;
-import com.example.demo.entity.keys.keyOrderItem;
+import com.example.demo.entity.keys.KeyOrderItem;
 import com.example.demo.payload.request.OrderRequest;
 import com.example.demo.repository.*;
 import com.example.demo.service.OrderService;
@@ -9,14 +9,13 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class OrderServiceImp implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     OrderRepository orderRepository;
@@ -57,7 +56,7 @@ public class OrderServiceImp implements OrderService {
                 Optional<Food> food = foodRepository.findById(foodId);
                 if (food.isPresent()) {
                     OrderItem orderItem = new OrderItem();
-                    keyOrderItem key = new keyOrderItem(savedOrder.getId(), foodId);
+                    KeyOrderItem key = new KeyOrderItem(savedOrder.getId(), foodId);
                     orderItem.setKeyOrderItem(key);
                     orderItem.setCreateDate(new Date());
                     
