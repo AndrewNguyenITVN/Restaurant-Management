@@ -22,17 +22,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class CustomsFillerSecurity {
+public class SecurityConfig {
 
     @Autowired
     CustomUserDetailService customUserDetailService;
 
     @Autowired
-    CustomJwtFiller customJwtFiller;
+    CustomJwtFilter customJwtFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();  // Tự động lấy cấu hình userDetailsService từ SecurityAutoConfiguration
+        return authConfig.getAuthenticationManager();
     }
 
     @Bean
@@ -47,8 +47,7 @@ public class CustomsFillerSecurity {
                         .requestMatchers("/login/**", "/restaurant/file/**").permitAll()
                         .anyRequest().authenticated()
                 );
-                //.httpBasic(Customizer.withDefaults());
-        http.addFilterBefore(customJwtFiller, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

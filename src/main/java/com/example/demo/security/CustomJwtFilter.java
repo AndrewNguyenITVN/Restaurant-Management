@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @Component
-public class CustomJwtFiller extends OncePerRequestFilter {
+public class CustomJwtFilter extends OncePerRequestFilter {
 
     @Autowired
     JwtUtils jwtUtils;
