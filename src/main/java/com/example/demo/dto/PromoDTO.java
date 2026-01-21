@@ -1,51 +1,21 @@
-package com.example.demo.entity;
-
-import jakarta.persistence.*;
+package com.example.demo.dto;
 
 import java.util.Date;
 
-@Entity(name = "promo")
-public class Promo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PromoDTO {
     private int id;
-
-    @Column(name = "code", unique = true, nullable = false)
     private String code;
-
-    @Column(name = "description")
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "res_id")
-    private Restaurant resId;
-
-    @Column(name = "discount_type")
-    private String discountType; // "PERCENT" or "FIXED"
-
-    @Column(name = "discount_value")
-    private double discountValue; // Giá trị giảm (% hoặc số tiền)
-
-    @Column(name = "min_order_value")
-    private double minOrderValue; // Giá trị đơn hàng tối thiểu
-
-    @Column(name = "max_discount")
-    private double maxDiscount; // Giảm tối đa (cho trường hợp %)
-
-    @Column(name = "usage_limit")
-    private int usageLimit; // Số lần sử dụng tối đa (0 = không giới hạn)
-
-    @Column(name = "used_count")
-    private int usedCount; // Số lần đã sử dụng
-
-    @Column(name = "start_date")
+    private int resId;
+    private String restaurantName;
+    private String discountType;
+    private double discountValue;
+    private double minOrderValue;
+    private double maxDiscount;
+    private int usageLimit;
+    private int usedCount;
     private Date startDate;
-
-    @Column(name = "end_date")
     private Date endDate;
-
-    @Column(name = "is_active")
     private boolean isActive;
 
     public int getId() {
@@ -72,12 +42,20 @@ public class Promo {
         this.description = description;
     }
 
-    public Restaurant getResId() {
+    public int getResId() {
         return resId;
     }
 
-    public void setResId(Restaurant resId) {
+    public void setResId(int resId) {
         this.resId = resId;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public String getDiscountType() {
