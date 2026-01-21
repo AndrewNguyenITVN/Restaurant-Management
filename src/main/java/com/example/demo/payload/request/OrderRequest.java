@@ -6,6 +6,7 @@ public class OrderRequest {
     private int userId;
     private int resId;
     private List<Integer> foodIds;
+    private String promoCode; // Mã giảm giá (optional)
 
     public int getUserId() {
         return userId;
@@ -29,5 +30,13 @@ public class OrderRequest {
 
     public void setFoodIds(List<Integer> foodIds) {
         this.foodIds = foodIds;
+    }
+
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
     }
 }
