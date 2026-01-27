@@ -13,7 +13,7 @@ public class RatingFood {
     private String content;
 
     @Column(name = "rate_point")
-    private String ratePoint;
+    private int ratePoint;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -40,11 +40,11 @@ public class RatingFood {
         this.content = content;
     }
 
-    public String getRatePoint() {
+    public int getRatePoint() {
         return ratePoint;
     }
 
-    public void setRatePoint(String ratePoint) {
+    public void setRatePoint(int ratePoint) {
         this.ratePoint = ratePoint;
     }
 
