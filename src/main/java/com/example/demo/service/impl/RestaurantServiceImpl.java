@@ -7,6 +7,7 @@ import com.example.demo.entity.Food;
 import com.example.demo.entity.MenuRestaurant;
 import com.example.demo.entity.RatingRestaurant;
 import com.example.demo.entity.Restaurant;
+import com.example.demo.repository.RatingFoodRepository;
 import com.example.demo.repository.RestaurantRepository;
 import com.example.demo.service.FileService;
 import com.example.demo.service.RestaurantService;
@@ -26,6 +27,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    RatingFoodRepository ratingFoodRepository;
 
     @Override
     public boolean insertRestaurant(MultipartFile file, String title, String subtitle, String description, boolean is_freeship, String address, String open_date) {
@@ -100,9 +104,17 @@ public class RestaurantServiceImpl implements RestaurantService {
                 for(Food food:menuRestaurant.getCateId().getListFood()){
                     FoodDTO foodDTO = new FoodDTO();
 
+                    foodDTO.setId(food.getId());
                     foodDTO.setImage(food.getImage());
                     foodDTO.setTitle(food.getTitle());
                     foodDTO.setTimeShip(food.getTimeShip());
+                    foodDTO.setPrice(food.getPrice());
+                    
+                    // Tính điểm trung bình và số lượng đánh giá
+                    Double avgRating = ratingFoodRepository.calculateAverageRating(food.getId());
+                    Long totalRatings = ratingFoodRepository.countRatingsByFoodId(food.getId());
+                    foodDTO.setAverageRating(avgRating != null ? Math.round(avgRating * 10.0) / 10.0 : 0.0);
+                    foodDTO.setTotalRatings(totalRatings != null ? totalRatings : 0L);
 
                     foodDTOList.add(foodDTO);
                 }

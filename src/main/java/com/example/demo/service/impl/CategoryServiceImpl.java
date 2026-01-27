@@ -5,6 +5,7 @@ import com.example.demo.dto.FoodDTO;
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Food;
 import com.example.demo.repository.CategoryRepository;
+import com.example.demo.repository.RatingFoodRepository;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    RatingFoodRepository ratingFoodRepository;
 
     @Override
     public List<CategoryDTO> getCategoryHome() {
@@ -37,9 +41,17 @@ public class CategoryServiceImpl implements CategoryService {
 
             for(Food dataFood: data.getListFood()){
                 FoodDTO foodDTO = new FoodDTO();
+                foodDTO.setId(dataFood.getId());
                 foodDTO.setImage(dataFood.getImage());
                 foodDTO.setTitle(dataFood.getTitle());
                 foodDTO.setTimeShip(dataFood.getTimeShip());
+                foodDTO.setPrice(dataFood.getPrice());
+                
+                // Tính điểm trung bình và số lượng đánh giá
+                Double avgRating = ratingFoodRepository.calculateAverageRating(dataFood.getId());
+                Long totalRatings = ratingFoodRepository.countRatingsByFoodId(dataFood.getId());
+                foodDTO.setAverageRating(avgRating != null ? Math.round(avgRating * 10.0) / 10.0 : 0.0);
+                foodDTO.setTotalRatings(totalRatings != null ? totalRatings : 0L);
 
                 listFoodDTO.add(foodDTO);
 
