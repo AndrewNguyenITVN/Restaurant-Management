@@ -45,6 +45,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login/**", "/restaurant/file/**").permitAll()
+                        // Accept access to Swagger UI
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                         .anyRequest().authenticated()
                 );
         http.addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
